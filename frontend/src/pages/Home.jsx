@@ -20,7 +20,7 @@ import NavBar from "../components/NavBar";
 import axiosInstance from "../api/axiosInterceptor";
 
 import PDFList from "../components/PDFList";
-import SelectPages from "../components/SelectPages";
+import SelectedPages from "../components/SelectedPages";
 
 const Home = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -176,7 +176,7 @@ const Home = () => {
                 </div>
                 {/* Selected Pages Preview */}
 
-                <SelectPages
+                <SelectedPages
                   pages={selectedPages}
                   file={selectedFile}
                   setPages={setSelectedPages}
@@ -199,15 +199,17 @@ const Home = () => {
             </CardFooter>
           </Card>
         ) : (
-          <Card className="w-1/2 p-4">
-            <PDFInput
-              fileInputRef={fileInputRef}
-              setSelectedFile={setSelectedFile}
-              setSelectedPages={setSelectedPages}
-            />
-          </Card>
+          <>
+            <Card className="w-1/2 p-4">
+              <PDFInput
+                fileInputRef={fileInputRef}
+                setSelectedFile={setSelectedFile}
+                setSelectedPages={setSelectedPages}
+              />
+            </Card>
+            <PDFList setPdfs={setPdfs} list={pdfs} />
+          </>
         )}
-        <PDFList list={pdfs} />
       </div>
     </>
   );

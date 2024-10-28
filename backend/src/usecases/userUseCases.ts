@@ -148,6 +148,24 @@ class UserUseCase {
       };
     }
   }
+
+  async deleteFile(userId: string, pdfId: string): Promise<ResponseType> {
+    try {
+      const result = await this.iUserRepository.deleteFile(userId, pdfId);
+      return {
+        statusCode: 200,
+        message: "File Deleted",
+        result,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        status: false,
+        statusCode: 500,
+        message: "Internal server Error",
+      };
+    }
+  }
 }
 
 export default UserUseCase;

@@ -1,4 +1,3 @@
-import { useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 import { useFormik } from "formik";
@@ -11,15 +10,17 @@ import { setUser } from "../redux/slices/userAuth";
 import axiosInstance from "../api/axiosInterceptor";
 
 const initialValues = {
+  name: "",
   email: "",
   password: "",
+  password2: "",
 };
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const SignUp = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const {
     handleChange,
     values,
@@ -39,14 +40,16 @@ const SignUp = () => {
             "Content-Type": "application/json",
           },
         });
-        const data = res.data.result;
-        console.log(data);
+        const data = res.data;
+        dispatch(setUser(res.data.result));
         action.resetForm();
-        Success(res.data.message);
+        Success(data.message);
+        navigate("/home");
       } catch (err) {
         Failed(err.response ? err.response.data.message : err.message);
         console.log(err.message);
       } finally {
+        action.resetForm();
         action.setSubmitting(false);
       }
     },
@@ -63,6 +66,7 @@ const SignUp = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-0">
                 <input
+                  name="name"
                   id="name"
                   type="text"
                   value={values.name}
@@ -81,6 +85,7 @@ const SignUp = () => {
                 <input
                   id="email"
                   type="email"
+                  name="email"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -96,6 +101,7 @@ const SignUp = () => {
 
               <div className="mb-0">
                 <input
+                  name="password"
                   id="password"
                   type="password"
                   value={values.password}
@@ -112,6 +118,7 @@ const SignUp = () => {
               </div>
               <div className="mb-0">
                 <input
+                  name="password2"
                   id="password2"
                   type="password"
                   value={values.password2}

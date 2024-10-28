@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import { Button } from "@material-tailwind/react";
 
-const SelectPages = ({ pages, file, setPages, handleClear }) => {
+const SelectedPages = ({ pages, file, setPages, handleClear }) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -28,6 +28,14 @@ const SelectPages = ({ pages, file, setPages, handleClear }) => {
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
+
+    if (!active || !over) {
+      console.warn("Drag ended with no active or over element:", {
+        active,
+        over,
+      });
+      return; // Exit if there are no valid drag targets
+    }
 
     if (active.id !== over.id) {
       setPages((pages) => {
@@ -94,7 +102,7 @@ const SortablePreviewItem = ({ id, file }) => {
   );
 };
 
-export default SelectPages;
+export default SelectedPages;
 
 // import React, { useState, useRef } from "react";
 // import {

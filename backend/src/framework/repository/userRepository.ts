@@ -47,7 +47,9 @@ class UserRepository implements IUserRepository {
         },
         { new: true }
       );
-      if (result) return file;
+      if (result) {
+        return result.pdfs[result.pdfs.length - 1];
+      }
       return null;
     } catch (error) {
       console.log(error);
@@ -63,6 +65,23 @@ class UserRepository implements IUserRepository {
     } catch (err) {
       console.log(err);
       return false;
+    }
+  }
+
+  async deleteFile(userId: string, pdfId: string): Promise<any> {
+    try {
+      const result = await userModel.findByIdAndUpdate(
+        userId,
+        {
+          $pull: { pdfs: { _id: pdfId } }, // Pull the PDF object with the specific pdfId
+        },
+        { new: true } // Return the updated document
+      );
+
+      return result; //
+    } catch (err) {
+      console.log(err);
+      return null;
     }
   }
 }

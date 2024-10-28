@@ -72,6 +72,18 @@ class UserController {
     }
   }
 
+  async deleteFile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const pdfId = req.params.id;
+      const userId = req.user.id;
+      const result = await this.userCase.deleteFile(userId, pdfId);
+      return res.status(result?.statusCode).json({ ...result });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
+
   async logoutUser(req: Request, res: Response, next: NextFunction) {
     try {
       console.log("logout");

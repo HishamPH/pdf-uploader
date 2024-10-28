@@ -33,4 +33,8 @@ userRouter.get("/get-files", userAuth, (req, res, next) => {
   userController.getFiles(req, res, next);
 });
 
+userRouter.delete("/delete-pdf/:id", userAuth, (req, res, next) => {
+  userController.deleteFile(req, res, next);
+});
+
 export default userRouter;

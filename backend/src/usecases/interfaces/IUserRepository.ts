@@ -6,6 +6,7 @@ interface IUserRepository {
   findByEmail(email: string): Promise<User | null>;
   uploadFile(file: any, userId: string): Promise<any>;
   getFiles(userId: string): Promise<any>;
+  deleteFile(userId: string, pdfId: string): Promise<any>;
 }
 
 export default IUserRepository;

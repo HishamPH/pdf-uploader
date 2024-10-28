@@ -60,7 +60,7 @@ const PDFInput = ({ fileInputRef, setSelectedFile, setSelectedPages }) => {
   };
 
   return (
-    <Card>
+    <Card className="">
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center ${
           isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"

@@ -113,13 +113,13 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="bg-gray-50 min-h-screen">
       <NavBar />
       <div className="flex justify-center flex-col items-center">
         {selectedFile ? (
-          <Card className="w-11/12 shadow-lg">
-            <div className="">
-              <div className="flex items-center justify-between m-4">
+          <Card className="w-11/12 shadow-lg mt-5">
+            <div className="mb-2">
+              <div className="flex items-center justify-between bg-blue-gray-100 rounded-t-md p-2">
                 <div className="flex items-center">
                   <DocumentIcon className="w-6 h-6 text-blue-500 mr-2" />
                   <span className="font-medium">{selectedFile.name}</span>
@@ -134,14 +134,20 @@ const Home = () => {
                   Remove
                 </Button>
               </div>
-              <div className="grid lg:grid-cols-2 m-2 gap-3">
+              <div className="grid lg:grid-cols-2 m-2 gap-5">
                 {/* PDF Pages Grid */}
-                <div className=" w-full mx-2">
-                  <div className="flex justify-between">
-                    <h3 className="text-lg font-semibold mb-3">Select Pages</h3>
-                    <Button onClick={handleSelectAll}>Select all</Button>
+                <div className=" w-full mx-3">
+                  <div className="flex justify-between items-center mb-3">
+                    <div className="text-xl font-semibold">Select Pages</div>
+
+                    <Button
+                      className="rounded-none bg-blue-700"
+                      onClick={handleSelectAll}
+                    >
+                      Select all
+                    </Button>
                   </div>
-                  <div className="max-h-[535px] border rounded-lg p-4 m-4 overflow-y-auto shadow-lg">
+                  <div className="max-h-[535px] border rounded-lg p-4 overflow-y-auto shadow-lg">
                     <Document
                       file={selectedFile}
                       onLoadSuccess={onDocumentLoadSuccess}
@@ -185,7 +191,7 @@ const Home = () => {
               </div>
             </div>
 
-            <CardFooter className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-3 mx-5 mt-0">
               <p className="text-sm text-gray-600">
                 {selectedPages.length} pages selected
               </p>
@@ -193,25 +199,33 @@ const Home = () => {
                 color="blue"
                 disabled={selectedPages.length === 0}
                 onClick={handleCreateNewPdf}
+                className="rounded-none bg-green-600"
               >
                 Create New PDF
               </Button>
-            </CardFooter>
+            </div>
           </Card>
         ) : (
           <>
-            <Card className="w-1/2 p-4">
-              <PDFInput
-                fileInputRef={fileInputRef}
-                setSelectedFile={setSelectedFile}
-                setSelectedPages={setSelectedPages}
-              />
-            </Card>
-            <PDFList setPdfs={setPdfs} list={pdfs} />
+            <div className="w-3/4 lg:flex mt-10 gap-8">
+              <Card className="lg:w-1/4 p-4 h-fit mb-3">
+                {/* Input section for the pdf */}
+
+                <PDFInput
+                  fileInputRef={fileInputRef}
+                  setSelectedFile={setSelectedFile}
+                  setSelectedPages={setSelectedPages}
+                />
+              </Card>
+
+              {/* List of existing pdfs */}
+
+              <PDFList setPdfs={setPdfs} list={pdfs} />
+            </div>
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

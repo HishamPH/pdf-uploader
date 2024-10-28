@@ -44,58 +44,66 @@ const PDFList = ({ setPdfs, list }) => {
     }
   };
   return (
-    <Card className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {list.map((pdf, index) => (
-        <div
-          key={index}
-          className="relative border rounded-lg overflow-hidden bg-white shadow-md w-48 group"
-          style={{ height: "300px" }}
-        >
-          {/* Delete button - visible only on hover */}
-          <button
-            onClick={() => handleDelete(pdf._id)}
-            className="absolute top-2 right-2 z-20 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-50"
-            aria-label="Delete PDF"
-            type="button"
-          >
-            <Trash2 className="w-4 h-4 text-red-600" />
-          </button>
-
-          {/* PDF preview section with hover overlay */}
-          <div className="h-3/4 overflow-hidden relative">
-            {/* Dark overlay on hover */}
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-200 z-10" />
-
-            {/* PDF preview */}
-            <Document file={pdf.url}>
-              <Page pageNumber={1} width={192} />
-            </Document>
-          </div>
-
-          {/* Bottom info section */}
-          <div className="absolute bottom-0 w-full h-1/4 bg-gray-100 rounded-b-lg flex justify-between items-center p-2">
-            {/* Filename with tooltip */}
-            <div className="flex-1 min-w-0 mr-2">
-              <span
-                title={pdf.originalName}
-                className="text-sm text-gray-600 block truncate"
-              >
-                {pdf.originalName}
-              </span>
-            </div>
-
-            {/* Download button */}
-            <button
-              onClick={() => handleDownload(pdf)}
-              className="text-blue-600 hover:text-blue-800 flex-shrink-0"
-              aria-label="Download PDF"
-              type="button"
+    <Card className="lg:w-3/4 p-4 flex justify-center items-center">
+      {list.length ? (
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {list.map((pdf, index) => (
+            <div
+              key={index}
+              className="relative border rounded-lg overflow-hidden bg-white shadow-md w-48 group"
+              style={{ height: "300px" }}
             >
-              <Download className="w-5 h-5" />
-            </button>
-          </div>
+              {/* Delete button - visible only on hover */}
+              <button
+                onClick={() => handleDelete(pdf._id)}
+                className="absolute top-2 right-2 z-20 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-50"
+                aria-label="Delete PDF"
+                type="button"
+              >
+                <Trash2 className="w-4 h-4 text-red-600" />
+              </button>
+
+              {/* PDF preview section with hover overlay */}
+              <div className="h-3/4 overflow-hidden relative">
+                {/* Dark overlay on hover */}
+                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-200 z-10" />
+
+                {/* PDF preview */}
+                <Document file={pdf.url}>
+                  <Page pageNumber={1} width={192} />
+                </Document>
+              </div>
+
+              {/* Bottom info section */}
+              <div className="absolute bottom-0 w-full h-1/4 bg-gray-100 rounded-b-lg flex justify-between items-center p-2">
+                {/* Filename with tooltip */}
+                <div className="flex-1 min-w-0 mr-2">
+                  <span
+                    title={pdf.originalName}
+                    className="text-sm text-gray-600 block truncate"
+                  >
+                    {pdf.originalName}
+                  </span>
+                </div>
+
+                {/* Download button */}
+                <button
+                  onClick={() => handleDownload(pdf)}
+                  className="text-blue-600 hover:text-blue-800 flex-shrink-0"
+                  aria-label="Download PDF"
+                  type="button"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <div className="text-2xl font-extrabold text-gray-600">
+          You haven't uploaded a pdf yet
+        </div>
+      )}
     </Card>
   );
 };

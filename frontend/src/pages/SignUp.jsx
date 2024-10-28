@@ -3,7 +3,6 @@ import { Button } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { signupValidation } from "../validation/validations";
 import { Success, Failed } from "../helper/popup";
-
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/userAuth";
 

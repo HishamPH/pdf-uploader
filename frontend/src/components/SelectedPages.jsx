@@ -1,5 +1,6 @@
 import React from "react";
 import { Document, Page } from "react-pdf";
+import { XCircle } from "lucide-react";
 import {
   DndContext,
   closestCenter,
@@ -46,10 +47,20 @@ const SelectedPages = ({ pages, file, setPages, handleClear }) => {
     }
   };
   return (
-    <div className="mb-6 m-3">
-      <div className="flex justify-between">
+    <div className="mx-3">
+      <div className="flex justify-between items-center mb-3">
         <h3 className="text-lg font-semibold mb-3">Selected Pages Preview</h3>
-        <Button onClick={handleClear}>clear all</Button>
+        {/* <Button onClick={handleClear}>clear all</Button> */}
+        <Button
+          variant="filled"
+          color="red"
+          size="sm"
+          className="flex items-center gap-2 px-4 py-2 capitalize shadow-md hover:shadow-lg transition-shadow"
+          onClick={handleClear}
+        >
+          <XCircle className="h-4 w-4" />
+          <span>Clear Selection</span>
+        </Button>
       </div>
 
       <div className="h-[535px] border rounded-lg p-4 bg-gray-50 shadow-lg">

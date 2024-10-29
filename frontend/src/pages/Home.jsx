@@ -21,8 +21,12 @@ import axiosInstance from "../api/axiosInterceptor";
 
 import PDFList from "../components/PDFList";
 import SelectedPages from "../components/SelectedPages";
+import Loader from "../helper/Loader";
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [selectedPages, setSelectedPages] = useState([]);
@@ -58,6 +62,7 @@ const Home = () => {
       return;
     }
     try {
+      setLoading(true);
       const pdfDoc = await PDFDocument.load(await selectedFile.arrayBuffer());
       const newPdfDoc = await PDFDocument.create();
       for (const pageNum of selectedPages) {
@@ -76,7 +81,7 @@ const Home = () => {
       console.log(res.data.result);
       setPdfs((prev) => [...prev, res.data.result]);
       setSelectedFile(null);
-
+      setLoading(false);
       // const url = URL.createObjectURL(blob);
       // const link = document.createElement("a");
       // link.href = url;
@@ -111,6 +116,9 @@ const Home = () => {
     // Clear all selected pages
     setSelectedPages([]);
   };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen">

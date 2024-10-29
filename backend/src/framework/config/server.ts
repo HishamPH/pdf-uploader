@@ -21,6 +21,9 @@ const createServer = async () => {
       optionSuccessStatus: 200,
     };
     app.use(cors(corsOptions));
+    //size limit for server files
+    app.use(express.json({ limit: "12mb" }));
+    app.use(express.urlencoded({ limit: "12mb", extended: true }));
 
     //static files
     app.use(express.static(path.join(__dirname, "../../../public")));

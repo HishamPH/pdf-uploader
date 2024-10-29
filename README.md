@@ -49,26 +49,17 @@ The source code is available on GitHub: [https://github.com/HishamPH/pdf-uploade
 
 To set up the application, follow these commands:
 
-# Step 1: Clone the Repository
+1. Clone the Repository
 
-git clone https://github.com/your-username/pdf-uploader.git
+```
+git clone https://github.com/HishamPH/pdf-uploader.git
+cd pdf-uploader/backend
+npm i
+```
 
-# Step 2: Navigate into the Project Folder
+2. Set Up the Backend Environment Variables
 
-cd pdf-uploader
-
-# Step 3: Backend Setup
-
-## Navigate to the Backend Folder
-
-cd backend
-
-## Install Dependencies
-
-npm install
-
-## Set Up the Backend Environment Variables
-
+```
 mv .env.example .env
 echo "PORT=3000" >> .env
 echo "MONGO_URL=<your-mongodb-uri>" >> .env
@@ -76,18 +67,18 @@ echo "ACCESS_TOKEN_SECRET=<your-access-token-secret>" >> .env
 echo "REFRESH_TOKEN_SECRET=<your-refresh-token-secret>" >> .env
 echo "BACKEND_URL=http://localhost:3000" >> .env
 echo "ORIGIN=http://localhost:5000" >> .env
+```
 
-# Step 4: Frontend Setup
+3. Frontend Setup
 
-## Navigate to the Frontend Folder
-
+```
 cd ../frontend
-
-## Install Dependencies
-
 npm install
+```
 
-## Set Up the Frontend Environment Variables
+4. Set Up the Frontend Environment Variables
 
+```
 mv .env.example .env
 echo "VITE_BACKEND=http://localhost:3000" >> .env
+```
